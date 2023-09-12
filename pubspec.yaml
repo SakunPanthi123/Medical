@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   cloud_firestore: ^4.9.1
   provider: ^6.0.5
+  show_up: ^1.0.0
 
 
 dev_dependencies:
