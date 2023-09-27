@@ -16,7 +16,7 @@ class _SignInPageState extends State<SignInPage> {
   String role = 'patient';
   String email = '';
   String password = '';
-  bool signIn = false;
+  bool signIn = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,16 +59,28 @@ class _SignInPageState extends State<SignInPage> {
                       });
                     },
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        formKey.currentState!.save();
-                        APIs.signIn(email, password, context);
-                      }
-                    },
-                    child: Text(
-                      'Login',
-                    ),
+                  Row(
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          setState(() {
+                            signIn = false;
+                          });
+                        },
+                        child: Text('Sign Up'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            formKey.currentState!.save();
+                            APIs.signIn(email, password, context);
+                          }
+                        },
+                        child: Text(
+                          'Login',
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               )

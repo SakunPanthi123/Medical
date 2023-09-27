@@ -4,11 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:medical/FirebaseConfig/firebase_options.dart';
-import 'package:medical/NavBarPages/disease_page.dart';
-import 'package:medical/NavBarPages/emergency.dart';
-import 'package:medical/NavBarPages/home_page.dart';
-import 'package:medical/NavBarPages/medicines.dart';
-import 'package:medical/NavBarPages/my_acoount.dart';
 import 'package:medical/login/signin_page.dart';
 import 'package:medical/nav_home_screen.dart';
 
@@ -37,7 +32,7 @@ class _MyAppState extends State<MyApp> {
     } else {
       signedIn = false;
     }
-    // TODO: implement initState
+
     super.initState();
   }
 
