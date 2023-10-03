@@ -3,8 +3,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:medical/NavBarPages/home_page.dart';
-import 'package:medical/main.dart';
 import 'package:medical/nav_home_screen.dart';
 
 class APIs {
