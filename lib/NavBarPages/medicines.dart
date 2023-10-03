@@ -103,7 +103,10 @@ class _MedicinesState extends State<Medicines> {
                         );
                       });
                 },
-                child: Text('Add a new meddicine'),
+                child: Padding(
+                  padding: const EdgeInsets.all(14),
+                  child: Text('Add a new meddicine'),
+                ),
               ),
               SizedBox(
                 height: 20,

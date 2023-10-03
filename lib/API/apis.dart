@@ -7,7 +7,7 @@ import 'package:medical/nav_home_screen.dart';
 
 class APIs {
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
-  static signUp(String email, String password, String name, String role,
+  static signUp(String email, String password, String name, String age, String address, String role,
       BuildContext context) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
@@ -17,6 +17,8 @@ class APIs {
           .doc(userCredential.user!.uid)
           .set({
         'name': name,
+        'age':age,
+        'address':address,
         'role': role,
       });
       ScaffoldMessenger.of(context)
