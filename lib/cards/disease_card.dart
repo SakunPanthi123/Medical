@@ -51,7 +51,6 @@ class DiseaseCard extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              // Add your 'Learn More' button action here.
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (BuildContext context) =>
                       DetailsPage(disease: disease)));

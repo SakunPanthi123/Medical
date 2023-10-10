@@ -126,7 +126,7 @@ class _MyAccountState extends State<MyAccount> {
                 ),
               ],
             ),
-            SizedBox(height: 400),
+            SizedBox(height: 300),
             ElevatedButton(
               onPressed: () async {
                 await FirebaseAuth.instance.signOut();

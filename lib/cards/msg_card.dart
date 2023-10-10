@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, use_key_in_widget_constructors, prefer_const_constructors
-
 import 'package:flutter/material.dart';
 
 class MessageCard extends StatelessWidget {
@@ -18,17 +16,21 @@ class MessageCard extends StatelessWidget {
         constraints: BoxConstraints(
           maxWidth: MediaQuery.of(context).size.width * 0.7,
         ),
-        decoration:BoxDecoration(
+        decoration: BoxDecoration(
           color: Colors.purple,
-          borderRadius: isSentByUser ? BorderRadius.only(topLeft:Radius.circular(8),
-          topRight:Radius.circular(8),
-          bottomLeft:Radius.circular(8),
-          bottomRight:Radius.circular(0),)
-        : BorderRadius.only(topLeft:Radius.circular(8),
-          topRight:Radius.circular(8),
-          bottomLeft:Radius.circular(0),
-          bottomRight:Radius.circular(8),),
-        
+          borderRadius: isSentByUser
+              ? BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
+                  bottomLeft: Radius.circular(8),
+                  bottomRight: Radius.circular(0),
+                )
+              : BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
+                  bottomLeft: Radius.circular(0),
+                  bottomRight: Radius.circular(8),
+                ),
         ),
         child: Text(
           message,
