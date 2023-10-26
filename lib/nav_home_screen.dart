@@ -20,7 +20,7 @@ class _NavScreenState extends State<NavScreen> {
     const Medicines(),
     const MyAccount()
   ];
-  int index = 0;
+  int index = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

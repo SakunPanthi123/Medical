@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class Medicines extends StatefulWidget {
-  const Medicines({super.key});
+  const Medicines({Key? key});
 
   @override
   State<Medicines> createState() => _MedicinesState();
@@ -12,12 +14,11 @@ class Medicines extends StatefulWidget {
 class _MedicinesState extends State<Medicines> {
   late String time;
   final TextEditingController medicineName = TextEditingController();
-  final List<Map<String, String>> times = [];
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   void initState() {
     super.initState();
-    // Initialize time as an empty string in initState
     time = '';
   }
 
@@ -34,9 +35,29 @@ class _MedicinesState extends State<Medicines> {
     }
   }
 
+  Future<void> addMedicineToFirestore(String name, String selectedTime) async {
+    try {
+      await firestore.collection('medicines').add({
+        'name': name,
+        'time': selectedTime,
+      });
+    } catch (e) {
+      print('Error adding medicine to Firestore: $e');
+    }
+  }
+
+  Future<void> removeMedicineFromFirestore(String documentID) async {
+    try {
+      await firestore.collection('medicines').doc(documentID).delete();
+    } catch (e) {
+      print('Error removing medicine from Firestore: $e');
+    }
+  }
+
+  
+
   @override
   Widget build(BuildContext context) {
-    // Initialize time with the current time in the build method
     if (time.isEmpty) {
       final currentTime = TimeOfDay.now();
       time = currentTime.format(context);
@@ -100,16 +121,16 @@ class _MedicinesState extends State<Medicines> {
                               height: 10,
                             ),
                             ElevatedButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 final selectedTime = time.isNotEmpty
                                     ? time
                                     : TimeOfDay.now().format(context);
 
+                                await addMedicineToFirestore(
+                                    medicineName.text, selectedTime);
+
                                 setState(() {
-                                  times.add({
-                                    'name': medicineName.text,
-                                    'time': selectedTime,
-                                  });
+                                  // This section has been removed
                                 });
                                 Navigator.pop(context);
                               },
@@ -131,37 +152,65 @@ class _MedicinesState extends State<Medicines> {
               height: 20,
             ),
             Expanded(
-              child: ListView.builder(
-                itemCount: times.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.purple,
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            times[index]['name'] ?? '',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                            ),
+              child: StreamBuilder<QuerySnapshot>(
+                stream: firestore.collection('medicines').snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  }
+
+                  final medicineDocs = snapshot.data!;
+                  final medicineList = medicineDocs.docs;
+
+                  return ListView.builder(
+                    itemCount: medicineList.length,
+                    itemBuilder: (context, index) {
+                      final medicineData =
+                          medicineList[index].data() as Map<String, dynamic>;
+                      final documentID = medicineList[index].id;
+                      final name = medicineData['name'] as String;
+                      final time = medicineData['time'] as String;
+
+                      return Container(
+                        margin: EdgeInsets.only(bottom: 10),
+                        decoration: BoxDecoration(
+                          color: Colors.purple,
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                name,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              Text(
+                                time,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.delete),
+                                color: Colors.red,
+                                onPressed: () {
+                                  removeMedicineFromFirestore(documentID);
+                                },
+                              ),
+                            ],
                           ),
-                          Text(
-                            times[index]['time'] ?? '',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                        ),
+                      );
+                    },
                   );
                 },
               ),

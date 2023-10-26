@@ -6,7 +6,7 @@ class NewsApi {
   final String baseUrl = 'https://newsapi.org/v2';
 
   Future<Map<String, dynamic>> fetchTeslaNews() async {
-    final response = await http.get(Uri.parse('$baseUrl/everything?q=apple&from=2023-10-09&to=2023-10-09&sortBy=popularity&apiKey=$apiKey'));
+    final response = await http.get(Uri.parse('$baseUrl/top-headlines?country=in&category=health&apiKey=$apiKey'));
 
     if (response.statusCode == 200) {
       return json.decode(response.body);
