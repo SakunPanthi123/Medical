@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:medical/API/news_api.dart';
 import 'package:medical/cards/news_card.dart';
 import 'package:medical/models/news_api_model.dart';
-import 'package:medical/api/news_api.dart'; 
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key});
@@ -27,7 +27,8 @@ class _HomePageState extends State<HomePage> {
 
     final List<dynamic> articleList = data['articles'];
     setState(() {
-      articles = articleList.map((article) => Articles.fromJson(article)).toList();
+      articles =
+          articleList.map((article) => Articles.fromJson(article)).toList();
     });
   }
 

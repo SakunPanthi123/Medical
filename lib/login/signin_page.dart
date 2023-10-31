@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medical/API/apis.dart';
+import 'package:medical/NonNavBarPages/forgot_password_page.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key});
@@ -25,7 +26,8 @@ class _SignInPageState extends State<SignInPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/logo.png', width: 150, height: 150), // Add your logo image
+            Image.asset('assets/logo.png',
+                width: 150, height: 150), // Add your logo image
             Form(
               key: formKey,
               child: signIn == true
@@ -94,6 +96,16 @@ class _SignInPageState extends State<SignInPage> {
                               ),
                             ),
                           ],
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    ForgotPasswordPage()));
+                          },
+                          child: Text(
+                            'Forgot Password',
+                          ),
                         ),
                       ],
                     )
@@ -221,7 +233,8 @@ class _SignInPageState extends State<SignInPage> {
                                 onPressed: () {
                                   if (formKey.currentState!.validate()) {
                                     formKey.currentState!.save();
-                                    APIs.signUp(email, password, name, age, address, role, context);
+                                    APIs.signUp(email, password, name, age,
+                                        address, role, context);
                                   }
                                 },
                                 child: Padding(
@@ -250,7 +263,7 @@ class RoundedTextField extends StatelessWidget {
   final bool obscureText;
   final Function(String?)? onSaved;
   final String? Function(String?)? validator;
-  
+
   final ValueKey? key;
 
   RoundedTextField({
