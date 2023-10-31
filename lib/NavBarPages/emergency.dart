@@ -1,18 +1,21 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:medical/cards/msg_%20box.dart';
 import 'package:medical/cards/msg_card.dart';
 
+
 class EmergencyPage extends StatefulWidget {
-  const EmergencyPage({super.key});
+  const EmergencyPage({Key? key}) : super(key: key);
 
   @override
   State<EmergencyPage> createState() => _EmergencyPageState();
 }
 
 class _EmergencyPageState extends State<EmergencyPage> {
-  final List<MessageCard> chatMessages = []; // Store chat messages
+  final List<MessageCard> chatMessages = []; 
 
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -36,7 +39,9 @@ class _EmergencyPageState extends State<EmergencyPage> {
                       ),
                       SizedBox(height: 10),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          FlutterPhoneDirectCaller.callNumber('+919106930860');
+                        },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
@@ -89,7 +94,6 @@ class _EmergencyPageState extends State<EmergencyPage> {
           ),
           ChatTypingBox(
             onSendMessage: (message) {
-              // Add the message to the chatMessages list
               setState(() {
                 chatMessages.add(MessageCard(
                   message: message,

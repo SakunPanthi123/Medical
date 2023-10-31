@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
+
 import 'package:flutter/material.dart';
 import 'package:medical/models/news_api_model.dart'; 
 
@@ -33,8 +35,16 @@ class ShowMorePage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10.0),
-            Image.network(
-              article.urlToImage ?? 'placeholder_image_url',
+
+            article.urlToImage == null ? 
+            Image.asset( 
+              'assets/logo.png',
+               height: 200.0,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            )
+            : Image.network(
+              article.urlToImage!,
               height: 200.0,
               width: double.infinity,
               fit: BoxFit.cover,
