@@ -1,7 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors_in_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:medical/NonNavBarPages/news.dart';
+import 'package:medical/NonNavBarPages/News.dart';
 import 'package:medical/models/news_api_model.dart';
 
 class NewsCard extends StatelessWidget {
@@ -17,25 +17,27 @@ class NewsCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          article.urlToImage == null ? Image.asset(
-                'assets/logo.png', 
-                height: 200.0,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ): Image.network(
-            article.urlToImage!,
-            height: 200.0,
-            width: double.infinity,
-            fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) {
-              return Image.asset(
-                'assets/logo.png', 
-                height: 200.0,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              );
-            },
-          ),
+          article.urlToImage == null
+              ? Image.asset(
+                  'assets/logo.png',
+                  height: 200.0,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                )
+              : Image.network(
+                  article.urlToImage!,
+                  height: 200.0,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Image.asset(
+                      'assets/logo.png',
+                      height: 200.0,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    );
+                  },
+                ),
           Padding(
             padding: EdgeInsets.all(10.0),
             child: Column(

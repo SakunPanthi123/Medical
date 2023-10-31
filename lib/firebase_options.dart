@@ -48,7 +48,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyCrSvtQ-fzUqbD0jBe0E0Cbttru2b9KvOI',
-    appId: '1:917815378759:web:a7b4127dc98e6562a6c262',
+    appId: '1:917815378759:web:e2dd4bd0ea54ec53a6c262',
     messagingSenderId: '917815378759',
     projectId: 'medical-c958f',
     authDomain: 'medical-c958f.firebaseapp.com',
@@ -57,7 +57,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyD7ZjjFch5ZgCBPwf9sdTvQ4iWsYt46rJ0',
-    appId: '1:917815378759:android:9705afd708d96e41a6c262',
+    appId: '1:917815378759:android:8796e6b5e56f47c3a6c262',
     messagingSenderId: '917815378759',
     projectId: 'medical-c958f',
     storageBucket: 'medical-c958f.appspot.com',
@@ -65,10 +65,10 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDeL5k0vKRUcqCHZ3BSzFjTMXJc7c9cn-0',
-    appId: '1:917815378759:ios:9f45daa518f3cd81a6c262',
+    appId: '1:917815378759:ios:1b86b859bb15de7ca6c262',
     messagingSenderId: '917815378759',
     projectId: 'medical-c958f',
     storageBucket: 'medical-c958f.appspot.com',
-    iosBundleId: 'com.example.medical',
+    iosBundleId: 'com.testing.medical',
   );
 }

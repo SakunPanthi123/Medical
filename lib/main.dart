@@ -3,14 +3,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:medical/firebase_options.dart';
 import 'package:medical/login/signin_page.dart';
 import 'package:medical/nav_home_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(MyApp());
 
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -36,9 +39,9 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          appBarTheme: AppBarTheme(  
+          appBarTheme: AppBarTheme(
             centerTitle: false,
           ),
           primarySwatch: Colors.purple,
