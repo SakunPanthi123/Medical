@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
 class Medicines extends StatefulWidget {
   const Medicines({Key? key});
 
@@ -53,8 +52,6 @@ class _MedicinesState extends State<Medicines> {
       print('Error removing medicine from Firestore: $e');
     }
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -192,19 +189,23 @@ class _MedicinesState extends State<Medicines> {
                                   fontSize: 20,
                                 ),
                               ),
-                              Text(
-                                time,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                ),
-                              ),
-                              IconButton(
-                                icon: Icon(Icons.delete),
-                                color: Colors.red,
-                                onPressed: () {
-                                  removeMedicineFromFirestore(documentID);
-                                },
+                              Row(
+                                children: [
+                                  Text(
+                                    time,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  IconButton(
+                                    icon: Icon(Icons.delete),
+                                    color: Colors.red,
+                                    onPressed: () {
+                                      removeMedicineFromFirestore(documentID);
+                                    },
+                                  ),
+                                ],
                               ),
                             ],
                           ),

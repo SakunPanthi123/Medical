@@ -1,9 +1,15 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:medical/API/image_helper.dart';
 import 'package:medical/login/signin_page.dart';
+
+final imageHelper = ImageHelper();
 
 class MyAccount extends StatefulWidget {
   const MyAccount({Key? key});
@@ -18,7 +24,9 @@ class _MyAccountState extends State<MyAccount> {
   String? role;
   String? age;
   String? address;
+  String? filePath;
   late DocumentSnapshot doc;
+  File? _image;
 
   @override
   void initState() {
@@ -35,6 +43,9 @@ class _MyAccountState extends State<MyAccount> {
     role = doc['role'];
     age = doc['age'];
     address = doc['address'];
+    filePath = doc['filepath'];
+    _image = File(filePath!);
+
     setState(() {});
   }
 
@@ -60,16 +71,27 @@ class _MyAccountState extends State<MyAccount> {
                     child: CircleAvatar(
                       radius: 75,
                       backgroundColor: Colors.orange,
-                      backgroundImage: NetworkImage(
-                          "https://media.istockphoto.com/id/1200677760/photo/portrait-of-handsome-smiling-young-man-with-crossed-arms.jpg?s=612x612&w=0&k=20&c=g_ZmKDpK9VEEzWw4vJ6O577ENGLTOcrvYeiLxi8mVuo="),
+                      backgroundImage:
+                          _image != null ? FileImage(_image!) : null,
                     ),
                   ),
                   Positioned(
                     bottom: 0,
                     right: 0,
                     child: IconButton(
-                      onPressed: () {
-                      
+                      onPressed: () async {
+                        final file = await imageHelper.pickImage();
+
+                        if (file?.path != null) {
+                          setState(() {
+                            _image = File(file!.path);
+
+                            FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .update({'filepath': file.path});
+                          });
+                        }
                       },
                       icon: Icon(Icons.edit),
                       color: Colors.red,
